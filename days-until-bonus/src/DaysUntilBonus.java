@@ -19,11 +19,15 @@ public class DaysUntilBonus {
 	
 	public static void main(String[] args) {
 
+		/* constant to calculate days from mseconds */
 		final long MS_IN_A_DAY = 86400000; 
 
-		Calendar defaultPayday = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-		long delta = 0;
+		/* BFTODO - someday make the payDay a CLI param, here's a default */
+		Calendar defaultPayday      = Calendar.getInstance();
+		/* output format for dates */
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");  
+		/* difference between today and bonus day (in ms) */
+		long delta                  = 0;		
 		
 		/* Current bonus pay day is March 20, 2015 */
 		defaultPayday.set(2015, Calendar.MARCH, 20);
@@ -33,7 +37,7 @@ public class DaysUntilBonus {
 		/* Print out the date of the bonus */
         System.out.println("Today is            : " + dateFormat.format(Calendar.getInstance().getTime()));
         System.out.println("Your bonus comes on : " + dateFormat.format(defaultPayday.getTime()));
-        System.out.println("Only " + (delta/MS_IN_A_DAY) + " days until you get the bonus.");
+        System.out.println("You have to wait " + (delta/MS_IN_A_DAY) + " days until you get the bonus.");
 		
 	}
 
