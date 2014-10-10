@@ -19,6 +19,14 @@ public class Sale
         this.sale_value     = sale_total;
     }
     
+    public void printSale() 
+    {
+        System.out.println("Sale type     : " + this.sale_type + " " + 
+                           "Sale brand    : " + this.popcorn_type + " " +
+                           "Sale quantity : " + this.bag_quantity + " " +
+                           "Sale value    : " + this.sale_value);
+    }
+    
     public Event getSale_type ()
     {
         return this.sale_type;

@@ -40,9 +40,8 @@ public class InventoryList
     // RETURNS : Updated inventory count
     public int sellInventory (Popcorn popcorn_type, int bags_sold)
     {
-        //safe check that we have a matching key
-        if (this.invetory_list.containsKey(popcorn_type) &&
-            this.invetory_list.get(popcorn_type) > bags_sold )
+       if (this.invetory_list.containsKey(popcorn_type) &&
+           this.invetory_list.get(popcorn_type) > bags_sold )
         {
             // update the list entry for this popcorn type
             this.invetory_list.put(popcorn_type, 
@@ -69,4 +68,16 @@ public class InventoryList
             return (-1);
         }
     }       // end getInventoryCount()
+    
+    public  void printInventory()
+    {
+        // use Popcorn values for print
+        for (Popcorn pop : Popcorn.values())
+        {
+            System.out.println("key: "    + pop + 
+                               " value: " + this.getInventoryCount(pop));
+        }
+    }       // end printInventory()
+
+
 }           // end CLASS InventoryList
