@@ -2,30 +2,16 @@ apply plugin: "java"
 apply plugin: "maven"
 apply plugin: 'war'
 
-group = "org.royersfordpack531"
+group = "org.royersfordpack.531"
 version = 1.0
 
-repositories {
+repositories 
+{
     mavenCentral()
 }
 
-sourceSets.all { set ->
-    def jarTask = task("${set.name}Jar", type: Jar) {
-        baseName = baseName + "-$set.name"
-        from set.output
-    }
-
-    artifacts {
-        archives jarTask
-    }
-}
-
-sourceSets {
-    api
-    impl
-}
-
-dependencies {
+dependencies 
+{
     compile 'joda-time:joda-time:2.4'
 	compile 'org.springframework:spring-core:4.1.0.RELEASE'
 	compile 'org.springframework:spring-test:4.1.1.RELEASE'
@@ -34,48 +20,10 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-autoconfigure:1.1.8.RELEASE'
 	compile 'com.squareup.retrofit:retrofit:1.7.0'
 	
-
-    apiCompile 'commons-codec:commons-codec:1.5'
-
-    implCompile sourceSets.api.output
-    implCompile 'commons-lang:commons-lang:2.6'
-
     testCompile 'junit:junit:4.9'
     testCompile 'joda-time:joda-time:2.4'
     testCompile 'org.springframework:spring-test:4.1.1.RELEASE'
-	testCompile 'org.springframework:spring-webmvc:4.1.1.RELEASE'
-	testCompile 'org.springframework.boot:spring-boot:1.1.8.RELEASE'
-	testCompile 'org.springframework.boot:spring-boot-autoconfigure:1.1.8.RELEASE'
-    testCompile sourceSets.api.output
-    testCompile sourceSets.impl.output
-	
-    runtime configurations.apiRuntime
-    runtime configurations.implRuntime
-}
-
-jar {
-    from sourceSets.api.output
-    from sourceSets.impl.output
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri("${buildDir}/repo"))
-
-            addFilter("main") { artifact, file -> artifact.name == project.name }
-            ["api", "impl"].each { type ->
-                addFilter(type) { artifact, file -> artifact.name.endsWith("-$type") }
-                
-                // We now have to map our configurations to the correct maven scope for each pom
-                ["compile", "runtime"].each { scope ->
-                    configuration = configurations[type + scope.capitalize()]
-                    ["main", type].each { pomName ->
-                        pom(pomName).scopeMappings.addMapping 1, configuration, scope
-                    }
-                }
-            }
-
-        }
-    }
+    testCompile 'org.springframework:spring-webmvc:4.1.1.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot:1.1.8.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot-autoconfigure:1.1.8.RELEASE'
 }
